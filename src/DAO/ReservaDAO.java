@@ -3,16 +3,9 @@ package DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
-
-import BLL.Categoria;
-import BLL.Reserva;
-import DAO.dto.CategoriaDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
 import UTIL.ConnectionManager;

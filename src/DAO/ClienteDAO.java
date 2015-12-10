@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 import BLL.Cliente;
-import DAO.dto.CategoriaDTO;
 import DAO.dto.ClienteDTO;
 import UTIL.ConnectionManager;
 import UTIL.DAOExcepcion;

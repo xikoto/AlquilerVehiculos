@@ -3,15 +3,9 @@ package DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.google.gson.Gson;
 
-import BLL.Categoria;
 import BLL.Sucursal;
-import DAO.dto.CategoriaDTO;
-import DAO.dto.SucursalDTO;
 import UTIL.*;
 
 public class SucursalDAO implements ISucursalDAO{

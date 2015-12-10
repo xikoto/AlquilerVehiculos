@@ -3,12 +3,9 @@ package DAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import com.google.gson.Gson;
 
 import BLL.Categoria;
-import BLL.Coche;
 import DAO.dto.CategoriaDTO;
 import UTIL.ConnectionManager;
 import UTIL.DAOExcepcion;

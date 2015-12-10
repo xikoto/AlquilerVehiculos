@@ -1,11 +1,5 @@
 package UTIL;
 
-import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.*;
-
-import BLL.*;
 import DAO.ReservaDAO;
 
 public class TestJose {

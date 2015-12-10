@@ -1,6 +1,5 @@
 package BLL;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import DAO.dto.RegListaResSucDTO;

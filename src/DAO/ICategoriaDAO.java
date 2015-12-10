@@ -2,8 +2,6 @@
 package DAO;
 
 
-import java.util.List;
-
 import DAO.dto.CategoriaDTO;
 import UTIL.DAOExcepcion;
 

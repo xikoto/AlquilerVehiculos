@@ -1,9 +1,6 @@
 //ISucursalDAO
 package DAO;
 
-import java.util.List;
-
-import DAO.dto.SucursalDTO;
 import UTIL.DAOExcepcion;
 
 
