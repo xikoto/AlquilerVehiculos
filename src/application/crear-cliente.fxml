@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorCrearCliente">
+   <center>
+      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="123.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="77.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DNI:" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre y apellidos:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo Postal" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Poblacion" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carnet de Conducir" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de Tarjeta de Crédito" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numero" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Año Caducidad" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mes Caducidad" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CVC" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de tarjeta" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Button fx:id="cancelar" mnemonicParsing="false" text="Cancelar" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
+            <Button fx:id="aceptar" mnemonicParsing="false" text="Aceptar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+            <TextField fx:id="dni" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <TextField fx:id="nombreApellidos" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+            <TextField fx:id="direccion" layoutX="110.0" layoutY="43.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+            <TextField fx:id="codigoPostal" layoutX="110.0" layoutY="73.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="poblacion" layoutX="110.0" layoutY="103.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <DatePicker fx:id="fechaCarnet" promptText="Fecha de obtención" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <TextField fx:id="digitosTC" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+            <TextField fx:id="anyoTC" layoutX="133.0" layoutY="193.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="mesTC" layoutX="133.0" layoutY="223.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="cvc" layoutX="310.0" layoutY="223.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="tipoTarjeta" layoutX="133.0" layoutY="253.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

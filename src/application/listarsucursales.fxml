@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorListarSucursales">
+   <center>
+      <TableView fx:id="sucursales" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="53.0" text="Id" />
+          <TableColumn fx:id="direccion" prefWidth="346.0" text="Dirección" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <Button fx:id="aceptar" mnemonicParsing="false" onAction="#acept" text="Aceptar" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

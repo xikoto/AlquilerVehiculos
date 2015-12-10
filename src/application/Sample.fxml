@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <top>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem fx:id="salir" mnemonicParsing="false" onAction="#salir" text="Salir" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Cliente">
+            <items>
+              <MenuItem fx:id="crearr" mnemonicParsing="false" onAction="#crearReserva" text="Crear reserva" />
+                  <MenuItem fx:id="crearc" mnemonicParsing="false" onAction="#crearCliente" text="Crear cliente" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Empleado">
+            <items>
+              <MenuItem fx:id="crearcemp" mnemonicParsing="false" onAction="#crearCliente" text="Crear cliente" />
+                  <MenuItem fx:id="listarrs" mnemonicParsing="false" onAction="#listarReservasSucursal" text="Listar reservas sucursal" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Admin">
+               <items>
+                  <MenuItem fx:id="listars" mnemonicParsing="false" onAction="#listarSucursales" text="Listar sucursales" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <HBox prefHeight="390.0" prefWidth="400.0" />
+   </center>
+</BorderPane>
