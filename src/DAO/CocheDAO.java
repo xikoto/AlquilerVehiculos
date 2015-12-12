@@ -8,7 +8,7 @@ import DAO.dto.CocheDTO;
 import UTIL.ConnectionManager;
 import UTIL.DAOExcepcion;
 
-public class CocheDAO implements ICocheDAO{
+public class CocheDAO extends UtilDAO implements ICocheDAO{
 	protected ConnectionManager connManager;
 	
 	public CocheDAO() throws DAOExcepcion {
@@ -26,12 +26,15 @@ public class CocheDAO implements ICocheDAO{
 			connManager.connect();
 			ResultSet rs=connManager.queryDB("select * from COCHE where sucursal="+idSucrursal);
 			connManager.close();
+			String matricula, categoria;
 			ArrayList<CocheDTO> listac=new ArrayList<CocheDTO>();
 			while(rs.next()){
-				listac.add(new CocheDTO(rs.getString("matricula"), 
+				matricula = limpiarString(rs.getString("matricula"));
+				categoria = limpiarString(rs.getString("nombre"));
+				listac.add(new CocheDTO(matricula, 
 										rs.getDouble("kmsActuales"), 
 										rs.getInt("sucursal"), 
-										rs.getString("nombre")));
+										categoria));
 			}	
 			return listac;
 		}

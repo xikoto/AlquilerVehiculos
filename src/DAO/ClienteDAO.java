@@ -112,30 +112,20 @@ public class ClienteDAO extends UtilDAO implements IClienteDAO{
 			ResultSet rs=connManager.queryDB(sql);
 			connManager.close();
 			
-			String nombre, direccion, poblacion, codPostal, digitosTC, tipoTC;
+			String dni, nombre, direccion, poblacion, codPostal, digitosTC, tipoTC;
 			
 			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 			while(rs.next()){
 				
-				nombre = rs.getString("nombreApellidos");
-				if(nombre == null) nombre = "";
+				dni =		limpiarString( rs.getString("dni"));
+				nombre = 	limpiarString( rs.getString("nombreApellidos"));
+				direccion = limpiarString( rs.getString("direccion"));				
+				poblacion = limpiarString( rs.getString("poblacion"));				
+				codPostal = limpiarString( rs.getString("codPostal"));				
+				digitosTC = limpiarString( rs.getString("digitosTC"));
+				tipoTC = 	limpiarString( rs.getString("tipoTC"));
 				
-				direccion = rs.getString("direccion");
-				if(direccion == null) direccion = "";
-				
-				poblacion = rs.getString("poblacion");
-				if(poblacion == null) poblacion = "";
-				
-				codPostal = rs.getString("codPostal");
-				if(codPostal == null) codPostal = "";
-				
-				digitosTC = rs.getString("digitosTC");
-				if(digitosTC == null) digitosTC = "";
-				
-				tipoTC = rs.getString("tipoTC");
-				if(tipoTC == null) tipoTC = "";
-				
-				listaClientes.add( new Cliente(	rs.getString("dni"),
+				listaClientes.add( new Cliente(	dni,
 												nombre,
 												direccion,
 												poblacion,

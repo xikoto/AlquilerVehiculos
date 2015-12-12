@@ -11,7 +11,7 @@ import DAO.dto.ReservaDTO;
 import UTIL.ConnectionManager;
 import UTIL.DAOExcepcion;
 
-public class ReservaDAO implements IReservaDAO{
+public class ReservaDAO extends UtilDAO implements IReservaDAO{
 	
 	protected ConnectionManager connManager;
 	
@@ -43,39 +43,28 @@ public class ReservaDAO implements IReservaDAO{
 			ResultSet rs=connManager.queryDB(sql);						
 			connManager.close();
 	  	  
-			String alquiler, nombre, direccion, poblacion, codPostal, digitosTC, tipoTC;
+			String alquiler, categoria, cliente, nombre, direccion, poblacion, codPostal, digitosTC, tipoTC;
 			ArrayList<RegListaResSucDTO> listaReservasDTO = new ArrayList<RegListaResSucDTO>();
 			try{			
 				while (rs.next()){
 					
 					//En prevencion de los null
-					alquiler = rs.getString("modalidadAlquiler");
-					if(alquiler == null) alquiler = "";
-					
-					nombre = rs.getString("nombreApellidos");
-					if(nombre == null) nombre = "";
-					
-					direccion = rs.getString("direccion");
-					if(direccion == null) direccion = "";
-					
-					poblacion = rs.getString("poblacion");
-					if(poblacion == null) poblacion = "";
-					
-					codPostal = rs.getString("codPostal");
-					if(codPostal == null) codPostal = "";
-					
-					digitosTC = rs.getString("digitosTC");
-					if(digitosTC == null) digitosTC = "";
-					
-					tipoTC = rs.getString("tipoTC");
-					if(tipoTC == null) tipoTC = "";
+					alquiler = 	limpiarString( rs.getString("modalidadAlquiler"));
+					categoria = limpiarString( rs.getString("categoria"));
+					nombre = 	limpiarString( rs.getString("nombreApellidos"));
+					cliente = 	limpiarString(rs.getString("clienteRealiza"));
+					direccion = limpiarString( rs.getString("direccion"));
+					poblacion = limpiarString( rs.getString("poblacion"));					
+					codPostal = limpiarString( rs.getString("codPostal"));					
+					digitosTC = limpiarString( rs.getString("digitosTC"));					
+					tipoTC = 	limpiarString( rs.getString("tipoTC"));
 					
 					listaReservasDTO.add( new RegListaResSucDTO(	rs.getInt("id"), 
 																	rs.getTimestamp("fechaRecogida").toLocalDateTime(), 
 																	rs.getTimestamp("fechaDevolucion").toLocalDateTime(), 
 																	alquiler, 
-																	rs.getString("categoria"), 
-																	rs.getString("clienteRealiza"), 
+																	categoria, 
+																	cliente, 
 																	rs.getInt("sucursalRecogida"), 
 																	rs.getInt("sucursalDevolucion"), 
 																	nombre, 
@@ -87,7 +76,7 @@ public class ReservaDAO implements IReservaDAO{
 																	rs.getInt("mesTC"), 
 																	rs.getInt("añoTC"), 
 																	rs.getInt("cvcTC"), 
-																	rs.getString("tipoTC")
+																	tipoTC
 										));
 					
 				}
