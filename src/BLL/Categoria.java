@@ -1,6 +1,6 @@
 package BLL;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import DAO.dto.CategoriaDTO;
 
@@ -12,7 +12,7 @@ public class Categoria {
 	private double precioSeguroTRiesgo;
 	private double precioSeguroTerceros;
 	private Categoria categoriaSuperior;
-	private ArrayList<Coche> listaCoches;
+	private HashMap<String,Coche> listaCoches;
 	
 	public Categoria(String nombre, double precioModIlimitada,
 			double precioModKms, double precioKmModKms,
@@ -26,7 +26,7 @@ public class Categoria {
 		this.precioSeguroTRiesgo = precioSeguroTRiesgo;
 		this.precioSeguroTerceros = precioSeguroTerceros;
 		this.categoriaSuperior = categoriaSuperior;
-		this.listaCoches = new ArrayList<Coche>();
+		this.listaCoches = new HashMap<String,Coche>();
 	}
 	
 	public Categoria(CategoriaDTO catDTO, Categoria catSup){
@@ -78,10 +78,10 @@ public class Categoria {
 	public void setCategoriaSuperior(Categoria categoriaSuperior) {
 		this.categoriaSuperior = categoriaSuperior;
 	}
-	public ArrayList<Coche> getListaCoches() {
+	public HashMap<String,Coche> getListaCoches() {
 		return listaCoches;
 	}
-	public void setListaCoches(ArrayList<Coche> listaCoches) {
-		this.listaCoches = listaCoches;
+	public void addCoche(Coche c){
+		listaCoches.put(c.getMatricula(),c);
 	}
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorListarCochesSucursal">
+	   <center>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="sucursales" prefHeight="500.0" prefWidth="150.0">
+              <columns>
+                <TableColumn fx:id="firstNameColumn" prefWidth="33.0" text="Id" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="117.0" text="Direccion" />
+              </columns>
+            </TableView>
+            <TableView prefHeight="500.0">
+              <columns>
+                <TableColumn prefWidth="87.0" text="Matricula" />
+                <TableColumn prefWidth="108.0" text="KmsActuales" />
+                  <TableColumn prefWidth="108.0" text="Categoria" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <Button fx:id="aceptar" mnemonicParsing="false" text="Aceptar" BorderPane.alignment="TOP_RIGHT">
+         <BorderPane.margin>
+            <Insets right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>

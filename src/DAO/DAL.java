@@ -1,8 +1,10 @@
 package DAO;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import DAO.dto.CocheDTO;
 import DAO.dto.ClienteDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
@@ -16,6 +18,7 @@ public class DAL {
 	private IReservaDAO reservaDAO;
 	private IClienteDAO clienteDAO;
 	private ISucursalDAO sucursalDAO;
+	private ICocheDAO cocheDAO;
 	
 	public DAL(){
 		try {
@@ -23,6 +26,7 @@ public class DAL {
 			this.reservaDAO = new ReservaDAO();
 			this.clienteDAO = new ClienteDAO();
 			this.sucursalDAO = new SucursalDAO();
+			this.cocheDAO = new CocheDAO();
 		} catch (DAOExcepcion e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,6 +70,9 @@ public class DAL {
 	public String obtenerSucursales() throws DAOExcepcion{
 		return sucursalDAO.obtenerSucursales();
 	}
-	
+
+	public ArrayList<CocheDTO> obtenerCochesSucursal(int idSucursal) throws DAOExcepcion{
+		return cocheDAO.obtenerCochesSucursal(idSucursal);
+	}
 	
 }

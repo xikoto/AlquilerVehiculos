@@ -24,6 +24,7 @@
             <items>
               <MenuItem fx:id="crearcemp" mnemonicParsing="false" onAction="#crearCliente" text="Crear cliente" />
                   <MenuItem fx:id="listarrs" mnemonicParsing="false" onAction="#listarReservasSucursal" text="Listar reservas sucursal" />
+                  <MenuItem fx:id="listarc" mnemonicParsing="false" onAction="#listarCochesSucursal" text="Listar coches sucursal" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Admin">

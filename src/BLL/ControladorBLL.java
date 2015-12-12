@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import DAO.DAL;
 import DAO.dto.ClienteDTO;
+import DAO.dto.CocheDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
 import UTIL.BLLExcepcion;
@@ -167,7 +168,6 @@ public class ControladorBLL {
 			}
 	}
 	
-	
 	public void crearCliente(ClienteDTO cliente) throws BLLExcepcion, DAOExcepcion{
 		if( !listaClientes.containsKey(cliente.getDni()) ){
 			dal.crearCliente(cliente);
@@ -175,6 +175,26 @@ public class ControladorBLL {
 		}else{
 			throw new BLLExcepcion("El cliente ya existe");
 		}
+	}
+	
+	public ArrayList<Coche> listarVehiculosDisponibles(int idSucursal) throws DAOExcepcion{
+		ArrayList<CocheDTO> listaCochesDTO=dal.obtenerCochesSucursal(idSucursal);
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		Categoria cat;
+		Sucursal suc;
+		Coche c;
+		for(CocheDTO cocheDTO : listaCochesDTO){
+			cat = listaCategorias.get(cocheDTO.getCategoria());
+			suc = listaSucursales.get(cocheDTO.getSucursal());
+			c = new Coche(cocheDTO.getMatricula(), 
+						  cocheDTO.getKmsActuales(), 
+						  suc, 
+						  cat);
+			listaCoches.add(c);
+			cat.addCoche(c);
+			suc.addCoche(c);
+		}
+		return new ArrayList<Coche>(listaSucursales.get(idSucursal).getListaCoches().values());
 	}
 	
 	private void cargarSistema() throws DAOExcepcion{

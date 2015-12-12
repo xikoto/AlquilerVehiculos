@@ -22,10 +22,13 @@ public class SampleController {
 	private MenuItem listarrs;
 	@FXML
 	private MenuItem listars;
+	@FXML
+	private MenuItem listarc;
 	private static final String CREAR_CLIENTE = "../application/crear-cliente.fxml";
 	 private static final String LISTAR_RESERVAS_SUCURSAL = "../application/listarreservas-sucursal.fxml";
 	 private static final String LISTAR_SUCURSALES = "../application/listarsucursales.fxml";
 	 private static final String CREAR_RESERVA = "../application/crear-reserva.fxml";
+	 private static final String LISTAR_COCHES_SUCURSAL = "../application/listarcochessucursal.fxml";
 	 private Stage primaryStage;
 	 @FXML
 	 void listarSucursales(ActionEvent event) throws BLLExcepcion {
@@ -49,6 +52,12 @@ public class SampleController {
 	 @FXML
 	 void listarReservasSucursal(ActionEvent event) throws BLLExcepcion {
 		 Stage stage = initCasoDeUso(LISTAR_RESERVAS_SUCURSAL,ControladorListarReservasSucursal.class).getStage();
+		 stage.initModality(Modality.WINDOW_MODAL);
+		 stage.show();
+	 }
+	 @FXML
+	 void listarCochesSucursal(ActionEvent event) throws BLLExcepcion {
+		 Stage stage = initCasoDeUso(LISTAR_COCHES_SUCURSAL,ControladorListarCochesSucursal.class).getStage();
 		 stage.initModality(Modality.WINDOW_MODAL);
 		 stage.show();
 	 }
