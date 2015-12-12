@@ -42,8 +42,6 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 	@FXML
 	private TableColumn<Reserva, String> cliente;
 	@FXML
-	private TableColumn<Reserva, String> entrega;
-	@FXML
 	private Button aceptar;
 	
 	@Override
@@ -72,8 +70,6 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 			new ReadOnlyObjectWrapper<>(param.getValue().getCategoria().getNombre()));
 		cliente.setCellValueFactory(param -> 
 			new ReadOnlyObjectWrapper<>(param.getValue().getCliente().getDni()));
-		/*entrega.setCellValueFactory(param -> 
-			new ReadOnlyObjectWrapper<>(param.getValue().getEntrega().getTipoSeguro()));*/
 
 		sucursales.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			this.reservas.getItems().clear();
