@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import BLL.Sucursal;
 import UTIL.*;
 
-public class SucursalDAO implements ISucursalDAO{
+public class SucursalDAO extends UtilDAO implements ISucursalDAO{
 
 	private ConnectionManager connManager;
 	private Gson gson;
@@ -35,8 +35,7 @@ public class SucursalDAO implements ISucursalDAO{
 				String direccion = "";
 				while (rs.next()){
 
-					direccion = rs.getString("direccion");
-					if( direccion == null) direccion = "";
+					direccion = limpiarString( rs.getString("direccion"));
 					listaSucursales.add(new Sucursal( rs.getInt("id"), direccion
 										));
 					
