@@ -18,13 +18,13 @@
             </TableView>
             <TableView fx:id="reservas" prefHeight="500.0" prefWidth="660.0">
               <columns>
-                <TableColumn fx:id="id" prefWidth="21.0" text="Id" />
-                <TableColumn fx:id="fechaRecogida" prefWidth="101.0" text="Fecha Recogida" />
-                  <TableColumn fx:id="fechaDevolucion" prefWidth="107.0" text="Fecha devolucion" />
-                  <TableColumn fx:id="modalidadAlquiler" prefWidth="119.0" text="Modalidad Alquiler" />
-                  <TableColumn fx:id="sucursalDevolucion" minWidth="0.0" prefWidth="120.0" text="Sucursal Devolucion" />
-                  <TableColumn fx:id="categoria" prefWidth="93.0" text="Categoria" />
-                  <TableColumn fx:id="cliente" minWidth="4.0" prefWidth="98.0" text="Cliente" />
+                <TableColumn fx:id="id" prefWidth="39.0" text="Id" />
+                <TableColumn fx:id="fechaRecogida" prefWidth="103.0" text="Fecha Recogida" />
+                  <TableColumn fx:id="fechaDevolucion" prefWidth="105.0" text="Fecha devolucion" />
+                  <TableColumn fx:id="modalidadAlquiler" prefWidth="123.0" text="Modalidad Alquiler" />
+                  <TableColumn fx:id="sucursalDevolucion" minWidth="0.0" prefWidth="123.0" text="Sucursal Devolucion" />
+                  <TableColumn fx:id="categoria" prefWidth="89.0" text="Categoria" />
+                  <TableColumn fx:id="cliente" minWidth="4.0" prefWidth="77.0" text="Cliente" />
               </columns>
             </TableView>
          </children>

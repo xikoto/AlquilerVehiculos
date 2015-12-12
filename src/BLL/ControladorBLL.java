@@ -89,16 +89,11 @@ public class ControladorBLL {
 	
 	
 	// Metodo para cambiar, metodo de apoyo para la creacion de vista
-	public ArrayList<Reserva> listarReservasSucursal(int sucursalID){
+	public ArrayList<Reserva> listarReservasSucursal(int sucursalID)throws DAOExcepcion{
 		
 		ArrayList<RegListaResSucDTO> listaDTO=null;
 		//tratamos las posibles excepciones para avisar a la vista (con el try/catch)
-		try {
-			listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
-		} catch (DAOExcepcion e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
 
 		Cliente auxCliente;
 		Reserva auxReserva;
@@ -198,22 +193,8 @@ public class ControladorBLL {
 	}
 	
 	private void cargarSistema() throws DAOExcepcion{
-		/*Sucursal suc1  = new Sucursal(1,"Camino de Vera s/n");
-		Sucursal suc2  = new Sucursal(2,"Archiduque Carlos, 3");
-		listaSucursales.put(new Integer(suc1.getId()), suc1);
-		listaSucursales.put(new Integer(suc2.getId()), suc2);
-		
-		Categoria cat1 = new Categoria("sedán",(double) 45, (double)23, (double)0.75,(double) 50.25, (double) 43.23, null);
-		Categoria cat2 = new Categoria("economy", (double)48, (double)27, (double)0.85, (double) 75.25, (double) 55.23, cat1);
-		listaCategorias.put(cat1.getNombre(), cat1);
-		listaCategorias.put(cat2.getNombre(), cat2);*/
-		
-		//Carga de la DB
-		//cargarClientes();//Revisar		
 		cargarCategorias();
 		cargarSucursales();
-		//Cargar Reservas
-		
 	}
 	
 	@SuppressWarnings("unused")
@@ -226,7 +207,6 @@ public class ControladorBLL {
 		}
 	}
 	
-	//Me falta añadir la lista de coches a cada categoria
 	private void cargarCategorias()throws DAOExcepcion{
 		String listaEnJson = dal.obtenerCategorias();
 		ArrayList<Categoria> categoriasDAO = gson.fromJson(listaEnJson, new TypeToken<ArrayList<Categoria>>(){}.getType());

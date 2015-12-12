@@ -2,7 +2,6 @@ package application;
 	
 import java.io.IOException;
 
-import BLL.ControladorBLL;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -28,7 +27,6 @@ public class Main extends Application {
 
 	public void initRootLayout() {
 		try {
-			ControladorBLL.getControlador();
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 

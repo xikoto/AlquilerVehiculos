@@ -34,10 +34,10 @@ public class ReservaDAO implements IReservaDAO{
 		try{
 			connManager.connect();
 			String sql = "SELECT * " +
-					 "FROM Reserva " +
-					 "LEFT JOIN Cliente " +
-					 "ON Reserva.clienteRealiza=Cliente.dni " +
-					 "WHERE Reserva.sucursalRecogida= "+ idSucursal 
+					 "FROM RESERVA " +
+					 "LEFT JOIN CLIENTE " +
+					 "ON RESERVA.CLIENTEREALIZA=CLIENTE.DNI " +
+					 "WHERE SUCURSALRECOGIDA= "+ idSucursal 
 					 ;
 		
 			ResultSet rs=connManager.queryDB(sql);						
