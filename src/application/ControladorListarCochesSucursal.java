@@ -8,8 +8,6 @@ import BLL.ControladorBLL;
 import BLL.Sucursal;
 import UTIL.DAOExcepcion;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -20,14 +18,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ControladorListarCochesSucursal extends ControladorCasoDeUso{
+public class ControladorListarCochesSucursal extends ControladorCasoDeUso {
 	@FXML
 	private TableView<Sucursal> sucursales;
 	@FXML
 	private TableColumn<Sucursal, Integer> firstNameColumn;
 	@FXML
 	private TableColumn<Sucursal, String> lastNameColumn;
-	
+
 	@FXML
 	private TableView<Coche> coches;
 	@FXML
@@ -36,14 +34,12 @@ public class ControladorListarCochesSucursal extends ControladorCasoDeUso{
 	private TableColumn<Coche, Double> kmsActuales;
 	@FXML
 	private TableColumn<Coche, String> categoria;
-	
-	private ObservableList<Coche> c;
-	
+
 	@FXML
 	private Button aceptar;
-	
+
 	private Stage dialogStage;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		stage = new Stage(StageStyle.DECORATED);
@@ -55,18 +51,19 @@ public class ControladorListarCochesSucursal extends ControladorCasoDeUso{
 		firstNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getId()));
 		lastNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getDireccion()));
 		this.sucursales.getItems().addAll(ControladorBLL.getControlador().listarSucursales());
-		
-		matricula.setCellValueFactory(cellData -> 
-		new ReadOnlyObjectWrapper<>(cellData.getValue().getMatricula()));
-		kmsActuales.setCellValueFactory(param -> 
-		new ReadOnlyObjectWrapper<>(param.getValue().getKmsActuales()));
-		categoria.setCellValueFactory(param -> 
-		new ReadOnlyObjectWrapper<>(param.getValue().getCategoria().getNombre()));
-		
+
+		matricula.setCellValueFactory(
+				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getMatricula()));
+		kmsActuales.setCellValueFactory(
+				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKmsActuales()));
+		categoria.setCellValueFactory(
+				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getCategoria().getNombre()));
+
 		sucursales.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			try {
-				c=FXCollections.observableList(ControladorBLL.getControlador().listarVehiculosDisponibles(newValue.getId()));
-				this.coches.setItems(c);
+				this.coches.getItems().clear();
+				for(Coche c : ControladorBLL.getControlador().listarVehiculosDisponibles(newValue.getId()))
+					this.coches.getItems().add(c);
 			} catch (DAOExcepcion e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.initOwner(dialogStage);
@@ -77,8 +74,7 @@ public class ControladorListarCochesSucursal extends ControladorCasoDeUso{
 				alert.showAndWait();
 			}
 		});
-		
-		
+
 	}
 
 }

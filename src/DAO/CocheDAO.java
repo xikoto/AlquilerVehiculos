@@ -32,7 +32,9 @@ public class CocheDAO implements ICocheDAO{
 										rs.getDouble("kmsActuales"), 
 										rs.getInt("sucursal"), 
 										rs.getString("nombre")));
-			}	
+			}
+			
+			if(listac.isEmpty())throw new DAOExcepcion("No existen registros de coches para la sucursal: "+ idSucrursal);
 			return listac;
 		}
 		catch (SQLException e){	throw new DAOExcepcion(e);}	
