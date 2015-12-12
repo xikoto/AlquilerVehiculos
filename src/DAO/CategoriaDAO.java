@@ -10,7 +10,7 @@ import DAO.dto.CategoriaDTO;
 import UTIL.ConnectionManager;
 import UTIL.DAOExcepcion;
 
-public class CategoriaDAO implements ICategoriaDAO {
+public class CategoriaDAO extends UtilDAO implements ICategoriaDAO {
 
 	protected ConnectionManager connManager;
 	private Gson gson;
@@ -31,7 +31,11 @@ public class CategoriaDAO implements ICategoriaDAO {
 			ResultSet rs=connManager.queryDB("select * from CATEGORIA where NOMBRE= '"+nombre+"'");
 			connManager.close();
 		
-			if (rs.next())
+			String catSup;
+			if (rs.next()){
+				
+				catSup = limpiarString(rs.getString("CATEGORIASUPERIOR"));
+				
 				return new CategoriaDTO(
 							rs.getString("NOMBRE"),
 							rs.getDouble("PRECIOMODILIMITADA"),
@@ -39,11 +43,13 @@ public class CategoriaDAO implements ICategoriaDAO {
 							rs.getDouble("PRECIOKMMODKMS"),
 							rs.getDouble("PRECIOSEGUROTRIESGO"),
 							rs.getDouble("PRECIOSEGUROTERCEROS"),
-							rs.getString("CATEGORIASUPERIOR"));
-			else
-				return null;	
-		}
-		catch (SQLException e){	throw new DAOExcepcion(e);}	
+							catSup);
+			}else{
+				throw new DAOExcepcion("No hay registros en la DB de la categoría " + nombre);
+			}
+		}catch (SQLException e){	
+			throw new DAOExcepcion(e);
+		}	
 	}
 
 	
@@ -55,9 +61,12 @@ public class CategoriaDAO implements ICategoriaDAO {
 	  	  
 			ArrayList<CategoriaDTO> listaCatDTO = new ArrayList<CategoriaDTO>();
 			HashMap<String, Categoria> mapCategorias = new HashMap<String, Categoria>();
-			try{				
+			try{
+				String catSup;
 				while (rs.next()){
 
+					catSup = limpiarString(rs.getString("CATEGORIASUPERIOR"));
+					
 					CategoriaDTO cat = new CategoriaDTO(
 							rs.getString("NOMBRE"),
 							rs.getDouble("PRECIOMODILIMITADA"),
@@ -65,7 +74,7 @@ public class CategoriaDAO implements ICategoriaDAO {
 							rs.getDouble("PRECIOKMMODKMS"),
 							rs.getDouble("PRECIOSEGUROTRIESGO"),
 							rs.getDouble("PRECIOSEGUROTERCEROS"),
-							rs.getString("CATEGORIASUPERIOR"));	 
+							catSup);	 
 					listaCatDTO.add(cat);
 					mapCategorias.put(cat.getNombre(), new Categoria(cat, null));
 				}
