@@ -9,8 +9,6 @@ import BLL.Reserva;
 import BLL.Sucursal;
 import UTIL.DAOExcepcion;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -50,7 +48,6 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 	private Button aceptar;
 	
 	private Stage dialogStage;
-	private ObservableList<Reserva> r;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -81,8 +78,9 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 
 		sucursales.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			try{
-				r=FXCollections.observableList(ControladorBLL.getControlador().listarReservasSucursal(newValue.getId()));
-				this.reservas.setItems(r);
+				this.reservas.getItems().clear();
+				for(Reserva r : ControladorBLL.getControlador().listarReservasSucursal(newValue.getId()))
+					this.reservas.getItems().add(r);
 			}catch(DAOExcepcion e){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.initOwner(dialogStage);

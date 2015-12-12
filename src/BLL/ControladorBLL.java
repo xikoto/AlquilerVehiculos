@@ -90,11 +90,9 @@ public class ControladorBLL {
 	
 	// Metodo para cambiar, metodo de apoyo para la creacion de vista
 	public ArrayList<Reserva> listarReservasSucursal(int sucursalID)throws DAOExcepcion{
-		
-		ArrayList<RegListaResSucDTO> listaDTO=null;
-		//tratamos las posibles excepciones para avisar a la vista (con el try/catch)
-		listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
 
+		ArrayList<RegListaResSucDTO> listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
+		ArrayList<Reserva> lr = new ArrayList<Reserva>();
 		Cliente auxCliente;
 		Reserva auxReserva;
 		for( RegListaResSucDTO dto : listaDTO ){
@@ -110,11 +108,11 @@ public class ControladorBLL {
 			//A toda la sucursal que cogemos del hashMap le añadimos la Reserva
 			listaSucursales.get( dto.getIdSucursalRecogida() ).addRecogidaReserva(auxReserva);
 			listaSucursales.get( dto.getIdSucursalDevolucion() ).addDevolucionReserva(auxReserva);
-			
+			lr.add(auxReserva);
 			listaReservas.put(auxReserva.getId(), auxReserva);
 		}
 		
-		return new ArrayList<Reserva>( listaReservas.values());
+		return lr;
 		
 	}
 	

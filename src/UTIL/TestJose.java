@@ -1,6 +1,7 @@
 package UTIL;
 
-import DAO.ReservaDAO;
+import BLL.ControladorBLL;
+import BLL.Reserva;
 
 public class TestJose {
 
@@ -34,10 +35,11 @@ public class TestJose {
 		}*/
 		
 		try {
-			ReservaDAO rDAO = new ReservaDAO();
-			System.out.println("Va a hacer consulta");
-			rDAO.pruebaConsulta( 2 );
-			System.out.println("Ha hecho consulta");
+			for(int i = 1; i<4; i++)
+				for (Reserva r : ControladorBLL.getControlador().listarReservasSucursal(i)) {
+					System.out.println(r.getId() + " " + r.getSucursalRecogida().getId() + " "
+							+ r.getSucursalDevolucion().getId());
+				}
 			
 		} catch (DAOExcepcion e) {
 			// TODO Auto-generated catch block
