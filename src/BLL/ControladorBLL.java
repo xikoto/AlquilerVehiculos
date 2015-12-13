@@ -190,6 +190,53 @@ public class ControladorBLL {
 		return new ArrayList<Coche>(listaSucursales.get(idSucursal).getListaCoches().values());
 	}
 	
+	
+	
+	/*****************************************************************************
+	 * 						ENTREGAR VEHICULO RESERVADO      					 
+	 * @throws DAOExcepcion *
+	 *****************************************************************************/
+	
+	/**
+	 * 1.- Listar reservas pendientes de entrega
+	 * Listara las reservas de la sucursa indicada que esten faltas de entrega
+	 */
+	public ArrayList<Reserva> listarReservasPendientesEntrega(int idSucursal) throws DAOExcepcion{
+		ArrayList<RegListaResSucDTO> listaResPEDTO = dal.obtenerReservasPendientesEntrega(idSucursal);
+		
+		Cliente auxCliente;
+		Reserva auxReserva;
+		ArrayList<Reserva> listaResPendEntrega = new ArrayList<Reserva>();
+		for(RegListaResSucDTO dto : listaResPEDTO){
+			auxCliente = new Cliente(dto);
+			listaClientes.put(auxCliente.getDni(), auxCliente);
+			
+			auxReserva = new Reserva(	dto, //elemento de la lista
+										listaSucursales.get(dto.getIdSucursalRecogida()) ,
+										listaSucursales.get(dto.getIdSucursalDevolucion()),
+										listaCategorias.get(dto.getNombreCategoria()),
+										auxCliente
+									);
+			//A toda la sucursal que cogemos del hashMap le añadimos la Reserva
+			listaSucursales.get( dto.getIdSucursalRecogida() ).addRecogidaReserva(auxReserva);
+			listaSucursales.get( dto.getIdSucursalDevolucion() ).addDevolucionReserva(auxReserva);
+			listaResPendEntrega.add(auxReserva);
+			listaReservas.put(auxReserva.getId(), auxReserva);
+		}
+		
+		return listaResPendEntrega;
+	}
+	
+	/**
+	 * 2.- Listar Coches de la categoría de la reserva que ha realizado el cliente.
+	 * @throws DAOExcepcion 
+	 * 
+	 */
+	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
+		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
+	}
+	
+	
 	private void cargarSistema() throws DAOExcepcion{
 		cargarCategorias();
 		cargarSucursales();

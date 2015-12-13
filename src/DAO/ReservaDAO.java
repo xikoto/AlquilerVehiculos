@@ -97,6 +97,77 @@ public class ReservaDAO extends UtilDAO implements IReservaDAO{
 		}	
 	}
 
+	
+	@Override
+	public ArrayList<RegListaResSucDTO> obtenerReservasPendientesEntrega(int idSucursal) throws DAOExcepcion{
+		try{
+			connManager.connect();
+			String sql = "SELECT * " +
+					 "FROM RESERVA " +
+					 "LEFT JOIN CLIENTE " +
+					 "ON RESERVA.CLIENTEREALIZA=CLIENTE.DNI " +
+					 "WHERE SUCURSALRECOGIDA= "+ idSucursal + " AND " +
+					 " id NOT EXIST (SELECT id FROM ENTREGA)"
+					 ;
+		
+			ResultSet rs=connManager.queryDB(sql);						
+			connManager.close();
+	  	  
+			String alquiler, categoria, cliente, nombre, direccion, poblacion, codPostal, digitosTC, tipoTC;
+			ArrayList<RegListaResSucDTO> listaReservasDTO = new ArrayList<RegListaResSucDTO>();
+			try{			
+				while (rs.next()){
+					
+					//En prevencion de los null
+					alquiler = 	limpiarString( rs.getString("modalidadAlquiler"));
+					categoria = limpiarString( rs.getString("categoria"));
+					nombre = 	limpiarString( rs.getString("nombreApellidos"));
+					cliente = 	limpiarString(rs.getString("clienteRealiza"));
+					direccion = limpiarString( rs.getString("direccion"));
+					poblacion = limpiarString( rs.getString("poblacion"));					
+					codPostal = limpiarString( rs.getString("codPostal"));					
+					digitosTC = limpiarString( rs.getString("digitosTC"));					
+					tipoTC = 	limpiarString( rs.getString("tipoTC"));
+					
+					listaReservasDTO.add( new RegListaResSucDTO(	rs.getInt("id"), 
+																	rs.getTimestamp("fechaRecogida").toLocalDateTime(), 
+																	rs.getTimestamp("fechaDevolucion").toLocalDateTime(), 
+																	alquiler, 
+																	categoria, 
+																	cliente, 
+																	rs.getInt("sucursalRecogida"), 
+																	rs.getInt("sucursalDevolucion"), 
+																	nombre, 
+																	direccion, 
+																	poblacion, 
+																	codPostal, 
+																	rs.getTimestamp("fechaCarnetConducir").toLocalDateTime(), 
+																	digitosTC, 
+																	rs.getInt("mesTC"), 
+																	rs.getInt("añoTC"), 
+																	rs.getInt("cvcTC"), 
+																	tipoTC
+										));
+					
+				}
+				
+				if( listaReservasDTO.isEmpty() ){
+					throw new DAOExcepcion("No existen registros de reservas para la sucursal " + idSucursal);
+				}else{
+					return listaReservasDTO;
+				}
+
+				
+				
+			}catch (Exception e){	
+				throw new DAOExcepcion(e);
+			}
+		}catch (SQLException e){	
+			throw new DAOExcepcion(e);
+		}
+	}
+	
+	
 	@Override
 	public ReservaDTO crearReserva(ReservaDTO reservaDTO) throws DAOExcepcion {
 		
@@ -171,5 +242,7 @@ public class ReservaDAO extends UtilDAO implements IReservaDAO{
 			e.printStackTrace();
 		}
 	}
+
+	
 
 }

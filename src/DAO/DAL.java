@@ -74,5 +74,17 @@ public class DAL {
 	public ArrayList<CocheDTO> obtenerCochesSucursal(int idSucursal) throws DAOExcepcion{
 		return cocheDAO.obtenerCochesSucursal(idSucursal);
 	}
+
+
+
+	public ArrayList<RegListaResSucDTO> obtenerReservasPendientesEntrega(int idSucursal) throws DAOExcepcion {
+		return reservaDAO.obtenerReservasPendientesEntrega(idSucursal);
+	}
+
+
+
+	public ArrayList<CocheDTO> obtenerCochesCategoria(String categoria) throws DAOExcepcion {
+		return cocheDAO.obtenerCochesCategoria(categoria);
+	}
 	
 }
