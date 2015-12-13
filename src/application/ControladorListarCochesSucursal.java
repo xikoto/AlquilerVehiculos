@@ -52,8 +52,10 @@ public class ControladorListarCochesSucursal extends ControladorCasoDeUso {
 		lastNameColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getDireccion()));
 		this.sucursales.getItems().addAll(ControladorBLL.getControlador().listarSucursales());
 
-		matricula.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getMatricula()));
-		kmsActuales.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKmsActuales()));
+		matricula.setCellValueFactory(
+				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getMatricula()));
+		kmsActuales.setCellValueFactory(
+				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKmsActuales()));
 		categoria.setCellValueFactory(
 				cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getCategoria().getNombre()));
 

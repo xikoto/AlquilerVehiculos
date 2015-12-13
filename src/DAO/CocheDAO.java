@@ -120,5 +120,28 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
 		}
 	}
 
+<<<<<<< HEAD
+	@Override
+	public ArrayList<CocheDTO> obtenerCochesSucursal(int idSucrursal) throws DAOExcepcion{
+		try{
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from COCHE where sucursal="+idSucrursal);
+			connManager.close();
+			ArrayList<CocheDTO> listac=new ArrayList<CocheDTO>();
+			while(rs.next()){
+				listac.add(new CocheDTO(rs.getString("matricula"), 
+										rs.getDouble("kmsActuales"), 
+										rs.getInt("sucursal"), 
+										rs.getString("nombre")));
+			}
+			
+			if(listac.isEmpty())throw new DAOExcepcion("No existen registros de coches para la sucursal: "+ idSucrursal);
+			return listac;
+		}
+		catch (SQLException e){	throw new DAOExcepcion(e);}	
+	}
+
+=======
+>>>>>>> refs/heads/temp
 }
 
