@@ -234,6 +234,7 @@ public class ControladorBLL {
 	 */
 	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
 		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
+		return null;
 	}
 	
 	
