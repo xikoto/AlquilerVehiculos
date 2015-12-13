@@ -1,6 +1,7 @@
 //IReservaDAO
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.dto.RegListaResSucDTO;
@@ -14,4 +15,6 @@ public interface IReservaDAO {
 	public List<RegListaResSucDTO> obtenerReservasPorSucursalOrigen(int idSucursal) throws DAOExcepcion;
  
 	public ReservaDTO crearReserva(ReservaDTO reserva) throws DAOExcepcion;
+
+	public ArrayList<RegListaResSucDTO> obtenerReservasPendientesEntrega(int idSucursal) throws DAOExcepcion;
 }
