@@ -234,8 +234,32 @@ public class ControladorBLL {
 	 */
 	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
 		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
+		
+		Coche cocheAux;
+		Sucursal sucAux;
+		Categoria catAux;
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		for(CocheDTO dto : listaCochesDTO){
+			sucAux = listaSucursales.get( dto.getSucursal());
+			catAux = listaCategorias.get( dto.getCategoria());
+			cocheAux = new Coche( 	dto.getMatricula(),
+									dto.getKmsActuales(),
+									sucAux,
+									catAux
+								);
+			sucAux.addCoche(cocheAux);
+			catAux.addCoche(cocheAux);
+			listaCoches.add(cocheAux);
+		}
+		return listaCoches;
 	}
 	
+	
+	
+	
+	/*************************************************************
+	 * 					CARGAR SISTEMA							 *
+	 *************************************************************/
 	
 	private void cargarSistema() throws DAOExcepcion{
 		cargarCategorias();
