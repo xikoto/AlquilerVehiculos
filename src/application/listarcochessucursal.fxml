@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorListarCochesSucursal">
-	   <center>
+     <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
             <TableView fx:id="sucursales" prefHeight="500.0" prefWidth="150.0">
@@ -16,11 +16,11 @@
                 <TableColumn fx:id="lastNameColumn" prefWidth="117.0" text="Direccion" />
               </columns>
             </TableView>
-            <TableView prefHeight="500.0">
+            <TableView fx:id="coches" prefHeight="500.0">
               <columns>
-                <TableColumn prefWidth="87.0" text="Matricula" />
-                <TableColumn prefWidth="108.0" text="KmsActuales" />
-                  <TableColumn prefWidth="108.0" text="Categoria" />
+                <TableColumn fx:id="matricula" prefWidth="87.0" text="Matricula" />
+                <TableColumn fx:id="kmsActuales" prefWidth="108.0" text="KmsActuales" />
+                  <TableColumn fx:id="categoria" prefWidth="108.0" text="Categoria" />
               </columns>
             </TableView>
          </children>
