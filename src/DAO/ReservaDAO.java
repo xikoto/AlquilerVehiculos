@@ -107,7 +107,7 @@ public class ReservaDAO extends UtilDAO implements IReservaDAO{
 					 "LEFT JOIN CLIENTE " +
 					 "ON RESERVA.CLIENTEREALIZA=CLIENTE.DNI " +
 					 "WHERE SUCURSALRECOGIDA= "+ idSucursal + " AND " +
-					 " id NOT EXIST (SELECT id FROM ENTREGA)"
+					 "NOT EXISTS (SELECT id FROM ENTREGA WHERE ENTREGA.id=RESERVA.id)"
 					 ;
 		
 			ResultSet rs=connManager.queryDB(sql);						
