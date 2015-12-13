@@ -2,11 +2,11 @@ package BLL;
 
 public class Coche{
 	private String matricula;
-	private int kmsActuales;
+	private double kmsActuales;
 	private Sucursal sucursal;
 	private Categoria categoria;
 	
-	public Coche(String matricula, int kmsActuales, Sucursal sucursal,Categoria categoria) {
+	public Coche(String matricula, double kmsActuales, Sucursal sucursal,Categoria categoria) {
 		super();
 		this.matricula = matricula;
 		this.kmsActuales = kmsActuales;
@@ -31,10 +31,10 @@ public class Coche{
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-	public int getKmsActuales() {
+	public double getKmsActuales() {
 		return kmsActuales;
 	}
-	public void setKmsActuales(int kmsActuales) {
+	public void setKmsActuales(double kmsActuales) {
 		this.kmsActuales = kmsActuales;
 	}
 }

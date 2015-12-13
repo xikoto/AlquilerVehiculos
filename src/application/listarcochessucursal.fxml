@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorListarReservasSucursal">
-   <center>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorListarCochesSucursal">
+     <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
             <TableView fx:id="sucursales" prefHeight="500.0" prefWidth="150.0">
@@ -16,15 +16,11 @@
                 <TableColumn fx:id="lastNameColumn" prefWidth="117.0" text="Direccion" />
               </columns>
             </TableView>
-            <TableView fx:id="reservas" prefHeight="500.0" prefWidth="660.0">
+            <TableView fx:id="coches" prefHeight="500.0">
               <columns>
-                <TableColumn fx:id="id" prefWidth="39.0" text="Id" />
-                <TableColumn fx:id="fechaRecogida" prefWidth="103.0" text="Fecha Recogida" />
-                  <TableColumn fx:id="fechaDevolucion" prefWidth="105.0" text="Fecha devolucion" />
-                  <TableColumn fx:id="modalidadAlquiler" prefWidth="123.0" text="Modalidad Alquiler" />
-                  <TableColumn fx:id="sucursalDevolucion" minWidth="0.0" prefWidth="123.0" text="Sucursal Devolucion" />
-                  <TableColumn fx:id="categoria" prefWidth="89.0" text="Categoria" />
-                  <TableColumn fx:id="cliente" minWidth="4.0" prefWidth="77.0" text="Cliente" />
+                <TableColumn fx:id="matricula" prefWidth="87.0" text="Matricula" />
+                <TableColumn fx:id="kmsActuales" prefWidth="108.0" text="KmsActuales" />
+                  <TableColumn fx:id="categoria" prefWidth="108.0" text="Categoria" />
               </columns>
             </TableView>
          </children>

@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import DAO.DAL;
 import DAO.dto.ClienteDTO;
+import DAO.dto.CocheDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
 import UTIL.BLLExcepcion;
@@ -88,17 +89,10 @@ public class ControladorBLL {
 	
 	
 	// Metodo para cambiar, metodo de apoyo para la creacion de vista
-	public ArrayList<Reserva> listarReservasSucursal(int sucursalID){
-		
-		ArrayList<RegListaResSucDTO> listaDTO=null;
-		//tratamos las posibles excepciones para avisar a la vista (con el try/catch)
-		try {
-			listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
-		} catch (DAOExcepcion e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ArrayList<Reserva> listarReservasSucursal(int sucursalID)throws DAOExcepcion{
 
+		ArrayList<RegListaResSucDTO> listaDTO = (ArrayList<RegListaResSucDTO>) dal.obtenerReservasPorSucursalOrigen(sucursalID);
+		ArrayList<Reserva> lr = new ArrayList<Reserva>();
 		Cliente auxCliente;
 		Reserva auxReserva;
 		for( RegListaResSucDTO dto : listaDTO ){
@@ -114,11 +108,11 @@ public class ControladorBLL {
 			//A toda la sucursal que cogemos del hashMap le añadimos la Reserva
 			listaSucursales.get( dto.getIdSucursalRecogida() ).addRecogidaReserva(auxReserva);
 			listaSucursales.get( dto.getIdSucursalDevolucion() ).addDevolucionReserva(auxReserva);
-			
+			lr.add(auxReserva);
 			listaReservas.put(auxReserva.getId(), auxReserva);
 		}
 		
-		return new ArrayList<Reserva>( listaReservas.values());
+		return lr;
 		
 	}
 	
@@ -167,7 +161,6 @@ public class ControladorBLL {
 			}
 	}
 	
-	
 	public void crearCliente(ClienteDTO cliente) throws BLLExcepcion, DAOExcepcion{
 		if( !listaClientes.containsKey(cliente.getDni()) ){
 			dal.crearCliente(cliente);
@@ -177,23 +170,100 @@ public class ControladorBLL {
 		}
 	}
 	
+	public ArrayList<Coche> listarVehiculosDisponibles(int idSucursal) throws DAOExcepcion{
+		ArrayList<CocheDTO> listaCochesDTO=dal.obtenerCochesSucursal(idSucursal);
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		Categoria cat;
+		Sucursal suc;
+		Coche c;
+		for(CocheDTO cocheDTO : listaCochesDTO){
+			cat = listaCategorias.get(cocheDTO.getCategoria());
+			suc = listaSucursales.get(cocheDTO.getSucursal());
+			c = new Coche(cocheDTO.getMatricula(), 
+						  cocheDTO.getKmsActuales(), 
+						  suc, 
+						  cat);
+			listaCoches.add(c);
+			cat.addCoche(c);
+			suc.addCoche(c);
+		}
+		return new ArrayList<Coche>(listaSucursales.get(idSucursal).getListaCoches().values());
+	}
+	
+	
+	
+	/*****************************************************************************
+	 * 						ENTREGAR VEHICULO RESERVADO      					 
+	 * @throws DAOExcepcion *
+	 *****************************************************************************/
+	
+	/**
+	 * 1.- Listar reservas pendientes de entrega
+	 * Listara las reservas de la sucursa indicada que esten faltas de entrega
+	 */
+	public ArrayList<Reserva> listarReservasPendientesEntrega(int idSucursal) throws DAOExcepcion{
+		ArrayList<RegListaResSucDTO> listaResPEDTO = dal.obtenerReservasPendientesEntrega(idSucursal);
+		
+		Cliente auxCliente;
+		Reserva auxReserva;
+		ArrayList<Reserva> listaResPendEntrega = new ArrayList<Reserva>();
+		for(RegListaResSucDTO dto : listaResPEDTO){
+			auxCliente = new Cliente(dto);
+			listaClientes.put(auxCliente.getDni(), auxCliente);
+			
+			auxReserva = new Reserva(	dto, //elemento de la lista
+										listaSucursales.get(dto.getIdSucursalRecogida()) ,
+										listaSucursales.get(dto.getIdSucursalDevolucion()),
+										listaCategorias.get(dto.getNombreCategoria()),
+										auxCliente
+									);
+			//A toda la sucursal que cogemos del hashMap le añadimos la Reserva
+			listaSucursales.get( dto.getIdSucursalRecogida() ).addRecogidaReserva(auxReserva);
+			listaSucursales.get( dto.getIdSucursalDevolucion() ).addDevolucionReserva(auxReserva);
+			listaResPendEntrega.add(auxReserva);
+			listaReservas.put(auxReserva.getId(), auxReserva);
+		}
+		
+		return listaResPendEntrega;
+	}
+	
+	/**
+	 * 2.- Listar Coches de la categoría de la reserva que ha realizado el cliente.
+	 * @throws DAOExcepcion 
+	 * 
+	 */
+	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
+		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
+		
+		Coche cocheAux;
+		Sucursal sucAux;
+		Categoria catAux;
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		for(CocheDTO dto : listaCochesDTO){
+			sucAux = listaSucursales.get( dto.getSucursal());
+			catAux = listaCategorias.get( dto.getCategoria());
+			cocheAux = new Coche( 	dto.getMatricula(),
+									dto.getKmsActuales(),
+									sucAux,
+									catAux
+								);
+			sucAux.addCoche(cocheAux);
+			catAux.addCoche(cocheAux);
+			listaCoches.add(cocheAux);
+		}
+		return listaCoches;
+	}
+	
+	
+	
+	
+	/*************************************************************
+	 * 					CARGAR SISTEMA							 *
+	 *************************************************************/
+	
 	private void cargarSistema() throws DAOExcepcion{
-		/*Sucursal suc1  = new Sucursal(1,"Camino de Vera s/n");
-		Sucursal suc2  = new Sucursal(2,"Archiduque Carlos, 3");
-		listaSucursales.put(new Integer(suc1.getId()), suc1);
-		listaSucursales.put(new Integer(suc2.getId()), suc2);
-		
-		Categoria cat1 = new Categoria("sedán",(double) 45, (double)23, (double)0.75,(double) 50.25, (double) 43.23, null);
-		Categoria cat2 = new Categoria("economy", (double)48, (double)27, (double)0.85, (double) 75.25, (double) 55.23, cat1);
-		listaCategorias.put(cat1.getNombre(), cat1);
-		listaCategorias.put(cat2.getNombre(), cat2);*/
-		
-		//Carga de la DB
-		//cargarClientes();//Revisar		
 		cargarCategorias();
 		cargarSucursales();
-		//Cargar Reservas
-		
 	}
 	
 	@SuppressWarnings("unused")
@@ -206,7 +276,6 @@ public class ControladorBLL {
 		}
 	}
 	
-	//Me falta añadir la lista de coches a cada categoria
 	private void cargarCategorias()throws DAOExcepcion{
 		String listaEnJson = dal.obtenerCategorias();
 		ArrayList<Categoria> categoriasDAO = gson.fromJson(listaEnJson, new TypeToken<ArrayList<Categoria>>(){}.getType());

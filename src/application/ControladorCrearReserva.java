@@ -43,8 +43,6 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 	private ComboBox<String> categoria;
 	@FXML
 	private TextField dnicliente;
-	@FXML
-	private ComboBox<String> tiposeguro;
 
 	@FXML
 	private Button aceptar;
@@ -69,8 +67,6 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 		for(Categoria cat : listacat){
 			categoria.getItems().add(cat.getNombre());
 		}
-		tiposeguro.getItems().add("A todo riesgo");
-		tiposeguro.getItems().add("A terceros");
 		
 		modalidad.getItems().add("Ilimitados");
 		modalidad.getItems().add("Kilometros");
@@ -163,10 +159,6 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 		
 		if (categoria.getSelectionModel().getSelectedItem() == null ) {
 			errorMessage += "No valid categoria!\n";
-		}
-		
-		if (tiposeguro.getSelectionModel().getSelectedItem() == null ) {
-			errorMessage += "No valid tipo seguro!\n";
 		}
 		
 		if (!ControladorCrearCliente.chequeaDNI(dnicliente.getText())) {

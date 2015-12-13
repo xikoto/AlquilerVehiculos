@@ -1,6 +1,7 @@
 package BLL;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import DAO.dto.SucursalDTO;
 
@@ -10,7 +11,7 @@ public class Sucursal {
 	private ArrayList<Reserva> devolucionesReserva;
 	private ArrayList<Reserva> recogidasReserva;
 	private ArrayList<Empleado> listaEmpleados;
-	private ArrayList<Coche> listaCoches;
+	private HashMap<String,Coche> listaCoches;
 	
 	public Sucursal(int id,String direccion) {
 		super();
@@ -19,7 +20,7 @@ public class Sucursal {
 		this.devolucionesReserva = new ArrayList<Reserva>();
 		this.recogidasReserva = new ArrayList<Reserva>();
 		this.listaEmpleados = new ArrayList<Empleado>();
-		this.listaCoches = new ArrayList<Coche>();
+		this.listaCoches = new HashMap<String,Coche>();
 	}
 	
 	public Sucursal(SucursalDTO sucursalDTO){
@@ -57,10 +58,10 @@ public class Sucursal {
 	public void setListaEmpleados(ArrayList<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
-	public ArrayList<Coche> getListaCoches() {
+	public HashMap<String,Coche> getListaCoches() {
 		return listaCoches;
 	}
-	public void setListaCoches(ArrayList<Coche> listaCoches) {
-		this.listaCoches = listaCoches;
+	public void addCoche(Coche c){
+		listaCoches.put(c.getMatricula(),c);
 	}
 }

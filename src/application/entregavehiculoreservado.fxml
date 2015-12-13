@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ControladorEntregarVehiculoReservado">
+   <left>
+      <VBox spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox fx:id="nombreSucursal" promptText="Selecciona sucursal">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </ComboBox>
+            <TableView fx:id="reservas">
+              <columns>
+                <TableColumn fx:id="id" prefWidth="48.0" text="Id" />
+                <TableColumn fx:id="fechar" minWidth="-1.0" prefWidth="101.0" text="Fecha Recogida" />
+                  <TableColumn fx:id="fechad" prefWidth="116.0" text="Fecha Devolucion" />
+                  <TableColumn fx:id="cat" prefWidth="78.0" text="Categoria" />
+                  <TableColumn fx:id="mod" prefWidth="76.0" text="Modalidad" />
+                  <TableColumn fx:id="dni" prefWidth="82.0" text="D.N.I." />
+                  <TableColumn fx:id="nombre" prefWidth="150.0" text="Nombre" />
+              </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <TableView fx:id="coches" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="mat" prefWidth="75.0" text="Matricula" />
+          <TableColumn fx:id="kms" prefWidth="100.0" text="Kms Actuales" />
+            <TableColumn fx:id="catc" prefWidth="72.0" text="Categoria" />
+        </columns>
+      </TableView>
+   </center>
+   <right>
+      <GridPane prefWidth="300.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="89.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="211.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="aceptar" mnemonicParsing="false" text="Aceptar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets right="5.0" top="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de seguro:" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kms actuales:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Combustible:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empleado:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField fx:id="kmsactuales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="combustible" promptText="litros actuales" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="tiposeguro" promptText="Seleciona el tipo de seguro" GridPane.columnIndex="1" />
+            <ComboBox fx:id="empleado" promptText="Selecciona tu dni de empleado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </GridPane>
+   </right>
+</BorderPane>

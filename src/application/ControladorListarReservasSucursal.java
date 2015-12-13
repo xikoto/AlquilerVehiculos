@@ -7,12 +7,15 @@ import java.util.ResourceBundle;
 import BLL.ControladorBLL;
 import BLL.Reserva;
 import BLL.Sucursal;
+import UTIL.DAOExcepcion;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -42,9 +45,9 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 	@FXML
 	private TableColumn<Reserva, String> cliente;
 	@FXML
-	private TableColumn<Reserva, String> entrega;
-	@FXML
 	private Button aceptar;
+	
+	private Stage dialogStage;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -72,12 +75,21 @@ public class ControladorListarReservasSucursal extends ControladorCasoDeUso {
 			new ReadOnlyObjectWrapper<>(param.getValue().getCategoria().getNombre()));
 		cliente.setCellValueFactory(param -> 
 			new ReadOnlyObjectWrapper<>(param.getValue().getCliente().getDni()));
-		/*entrega.setCellValueFactory(param -> 
-			new ReadOnlyObjectWrapper<>(param.getValue().getEntrega().getTipoSeguro()));*/
 
 		sucursales.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			this.reservas.getItems().clear();
-			this.reservas.getItems().addAll(ControladorBLL.getControlador().listarReservasSucursal(newValue.getId()));
+			try{
+				this.reservas.getItems().clear();
+				for(Reserva r : ControladorBLL.getControlador().listarReservasSucursal(newValue.getId()))
+					this.reservas.getItems().add(r);
+			}catch(DAOExcepcion e){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(dialogStage);
+				alert.setTitle("Sucursal vacia");
+				alert.setHeaderText("Por favor selecciona otra sucursal");
+				alert.setContentText(e.getMessage());
+
+				alert.showAndWait();
+			}
 		});
 		
 	}
