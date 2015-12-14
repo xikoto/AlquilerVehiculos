@@ -11,6 +11,7 @@ import DAO.DAL;
 import DAO.dto.ClienteDTO;
 import DAO.dto.CocheDTO;
 import DAO.dto.EmpleadoDTO;
+import DAO.dto.EntregaDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
 import UTIL.BLLExcepcion;
@@ -260,6 +261,7 @@ public class ControladorBLL {
 	 * @throws DAOExcepcion 
 	 * 
 	 */
+
 	public ArrayList<Empleado> obtenerEmpleados(int idSuc) throws DAOExcepcion{
 		ArrayList<EmpleadoDTO> listaEmpleadosDTO = dal.obtenerEmpleados(idSuc);
 		
@@ -274,6 +276,29 @@ public class ControladorBLL {
 		}
 		return listaEmpleado;
 	}
+	
+	/**
+	 * 4.- Añadir entrega en DB
+	 * @throws DAOExcepcion 
+	 */
+	public void entregarVehiculoReservado(EntregaDTO entregaDTO, int idSucursal) throws DAOExcepcion{
+		dal.entregarVehiculoReservado(entregaDTO);
+		
+		Coche cocheAux = listaSucursales.get(idSucursal).getCoche(entregaDTO.getCoche());
+		Empleado empAux = listaSucursales.get(idSucursal).getEmpleado(entregaDTO.getEmpleado());
+		Reserva resAux = listaReservas.get(entregaDTO.getId());
+		
+		Entrega entregaAux = new Entrega( entregaDTO,cocheAux,empAux, resAux);
+		
+		resAux.setEntrega(entregaAux);
+		
+	}
+	
+	
+	
+	/************************************************************************************
+	 * 						CARGAR SISTEMA												*
+	 ************************************************************************************/
 	
 	private void cargarSistema() throws DAOExcepcion{
 		cargarCategorias();

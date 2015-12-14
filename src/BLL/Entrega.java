@@ -1,22 +1,26 @@
 package BLL;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import DAO.dto.EntregaDTO;
+
 public class Entrega {
-	private LocalDate fecha;
+	private int id;
+	private LocalDateTime fecha;
 	private String tipoSeguro;
-	private int kms;
-	private int combustible;
+	private double kms;
+	private double combustible;
 	private Coche coche;
 	private Empleado empleado;
 	private Reserva reserva;
 	private ArrayList<Danyo> listaDanyos;
 	private Devolucion devolucion;
-	public Entrega(LocalDate fecha, String tipoSeguro, int kms, int combustible,
-			Coche coche, Empleado empleado, Reserva reserva,
-			ArrayList<Danyo> listaDanyos, Devolucion devolucion) {
+	
+	public Entrega(int id, LocalDateTime fecha, String tipoSeguro, double kms, double combustible,
+			Coche coche, Empleado empleado, Reserva reserva, Devolucion devolucion) {
 		super();
+		this.id = id;
 		this.fecha = fecha;
 		this.tipoSeguro = tipoSeguro;
 		this.kms = kms;
@@ -24,13 +28,35 @@ public class Entrega {
 		this.coche = coche;
 		this.empleado = empleado;
 		this.reserva = reserva;
-		this.listaDanyos = listaDanyos;
+		this.listaDanyos = new ArrayList<Danyo>();
 		this.devolucion = devolucion;
 	}
-	public LocalDate getFecha() {
+	
+	public Entrega(EntregaDTO dto,Coche coche, Empleado empleado, Reserva reserva){
+		this(	dto.getId(),
+				dto.getFecha(),
+				dto.getTipoSeguro(),
+				dto.getKms(),
+				dto.getCombustible(),
+				coche,
+				empleado,
+				reserva,
+				null
+				);
+	}
+	
+	public int getId(){
+		return this.id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 	public String getTipoSeguro() {
@@ -39,16 +65,16 @@ public class Entrega {
 	public void setTipoSeguro(String tipoSeguro) {
 		this.tipoSeguro = tipoSeguro;
 	}
-	public int getKms() {
+	public double getKms() {
 		return kms;
 	}
-	public void setKms(int kms) {
+	public void setKms(double kms) {
 		this.kms = kms;
 	}
-	public int getCombustible() {
+	public double getCombustible() {
 		return combustible;
 	}
-	public void setCombustible(int combustible) {
+	public void setCombustible(double combustible) {
 		this.combustible = combustible;
 	}
 	public Coche getCoche() {
@@ -72,8 +98,8 @@ public class Entrega {
 	public ArrayList<Danyo> getListaDanyos() {
 		return listaDanyos;
 	}
-	public void setListaDanyos(ArrayList<Danyo> listaDanyos) {
-		this.listaDanyos = listaDanyos;
+	public void addDanyo(Danyo danyo) {
+		this.listaDanyos.add(danyo);
 	}
 	public Devolucion getDevolucion() {
 		return devolucion;

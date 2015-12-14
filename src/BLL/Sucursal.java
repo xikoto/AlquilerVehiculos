@@ -10,7 +10,7 @@ public class Sucursal {
 	private String direccion;
 	private ArrayList<Reserva> devolucionesReserva;
 	private ArrayList<Reserva> recogidasReserva;
-	private ArrayList<Empleado> listaEmpleados;
+	private HashMap<String, Empleado> listaEmpleados;
 	private HashMap<String,Coche> listaCoches;
 	
 	public Sucursal(int id,String direccion) {
@@ -19,7 +19,7 @@ public class Sucursal {
 		this.direccion = direccion;
 		this.devolucionesReserva = new ArrayList<Reserva>();
 		this.recogidasReserva = new ArrayList<Reserva>();
-		this.listaEmpleados = new ArrayList<Empleado>();
+		this.listaEmpleados = new HashMap<String, Empleado>();
 		this.listaCoches = new HashMap<String,Coche>();
 	}
 	
@@ -53,19 +53,28 @@ public class Sucursal {
 		recogidasReserva.add(reserva);
 	}
 	public ArrayList<Empleado> getListaEmpleados() {
-		return listaEmpleados;
+		return new ArrayList<Empleado>(listaEmpleados.values());
 	}
-	public void setListaEmpleados(ArrayList<Empleado> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
+	
+	public Empleado getEmpleado(String dni){
+		return listaEmpleados.get(dni);
 	}
+	
+	public void addEmpleado(Empleado e){
+		listaEmpleados.put(e.getDni(), e);
+	}
+	
 	public HashMap<String,Coche> getListaCoches() {
 		return listaCoches;
 	}
+	
+	public Coche getCoche(String matr){
+		return listaCoches.get(matr);
+	}
+	
 	public void addCoche(Coche c){
 		listaCoches.put(c.getMatricula(),c);
 	}
 	
-	public void addEmpleado(Empleado e){
-		listaEmpleados.add(e);
-	}
+	
 }

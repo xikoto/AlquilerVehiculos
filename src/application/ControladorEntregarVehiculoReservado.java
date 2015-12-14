@@ -10,6 +10,7 @@ import BLL.ControladorBLL;
 import BLL.Empleado;
 import BLL.Reserva;
 import BLL.Sucursal;
+import DAO.dto.EntregaDTO;
 import UTIL.DAOExcepcion;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -74,6 +75,7 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 	private Button aceptar;
 	
 	private IntegerProperty idreserva = new SimpleIntegerProperty(0);
+	private IntegerProperty idsucursal = new SimpleIntegerProperty(0);
 	private StringProperty matriculacoche = new SimpleStringProperty("");
 	LocalDateTime time;
 
@@ -106,8 +108,8 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		}
 		
 		//Rellenar combobox tiposeguro
-		tiposeguro.getItems().add("A todo riesgo");
-		tiposeguro.getItems().add("A terceros");
+		tiposeguro.getItems().add("todoriesgo");
+		tiposeguro.getItems().add("a terceros");
 		
 		//Reservas
 		id.setCellValueFactory(
@@ -141,6 +143,7 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			empleado.setVisible(false);
 			aceptar.setVisible(false);
 			int idSuc = Integer.parseInt(t1.split("-")[0]);
+			idsucursal.set(idSuc);
 			try{
 				this.reservas.getItems().clear();
 				this.coches.getItems().clear();
@@ -221,9 +224,19 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			}
 			
 			if(e!=null){
-				ControladorBLL.getControlador().entregarVehiculoReservado(e);
-				Node minodo = (Node) event.getSource();
-				minodo.getScene().getWindow().hide();
+				try {
+					ControladorBLL.getControlador().entregarVehiculoReservado(e,idsucursal.get());
+					Node minodo = (Node) event.getSource();
+					minodo.getScene().getWindow().hide();
+				} catch (DAOExcepcion e1) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.initOwner(dialogStage);
+					alert.setTitle("Error entrega");
+					alert.setHeaderText("No ha sido posible crear la entrega");
+					alert.setContentText(e1.getMessage());
+
+					alert.showAndWait();
+				}
 			}
 		});
 	}

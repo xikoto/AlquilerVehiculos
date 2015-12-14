@@ -75,11 +75,11 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
 	            	bandera = true;
 	            	if(categoria == "")
 	            		throw new DAOExcepcion("No quedan vehículos disponibles en ninguna de las categorias.");
-	            }
+	            }	            
 	            
-	            return listaCocheDTO;
 			}while( bandera );
 			
+			return listaCocheDTO;
 			
         }catch (SQLException e){
         	throw new DAOExcepcion(e);
