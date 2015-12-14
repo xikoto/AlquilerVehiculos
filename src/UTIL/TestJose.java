@@ -2,7 +2,6 @@ package UTIL;
 
 import BLL.ControladorBLL;
 import BLL.Empleado;
-import BLL.Reserva;
 
 public class TestJose {
 
