@@ -205,11 +205,71 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			combustible.setVisible(false);
 			empleado.setVisible(false);
 			aceptar.setVisible(false);
+			EntregaDTO e=null;
+			if(isInputValid()){
+				e = new EntregaDTO(idreserva.get(),
+				   				   LocalDateTime.now(),
+								   tiposeguro.getSelectionModel().getSelectedItem(),
+								   Double.parseDouble(kmsactuales.getText()),
+								   Double.parseDouble(combustible.getText()),
+								   matriculacoche.get(),
+								   empleado.getSelectionModel().getSelectedItem());
+			}
 			
-			Node minodo = (Node) event.getSource();
-			minodo.getScene().getWindow().hide();
+			if(e!=null){
+				ControladorBLL.getControlador().entregarVehiculoReservado(e);
+				Node minodo = (Node) event.getSource();
+				minodo.getScene().getWindow().hide();
+			}
 		});
-		
 	}
+	private boolean isInputValid(){
+		String errorMessage = "";
+		
+		if (tiposeguro.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No valid tipo de seguro!\n";
+		}
+		
+		if (empleado.getSelectionModel().getSelectedItem() == null) {
+			errorMessage += "No valid empleado!\n";
+		}
+		
+		if (kmsactuales.getText() == null) {
+			errorMessage += "No valid kms actuales!\n";
+		} else {
+			// try to parse the postal code into an int.
+			try {
+				Double.parseDouble(kmsactuales.getText());
+			} catch (NumberFormatException e) {
+				errorMessage += "No valid number of kms actuales!\n";
+			}
+		}
+		
+		if (combustible.getText() == null) {
+			errorMessage += "No valid combustible!\n";
+		} else {
+			try {
+				Double.parseDouble(combustible.getText());
+			} catch (NumberFormatException e) {
+				errorMessage += "No valid number of combustible!\n";
+			}
+		}
+		
 
+		if (errorMessage.length() == 0) {
+			return true;
+		} else {
+			// Show the error message.
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.initOwner(dialogStage);
+			alert.setTitle("Invalid Fields");
+			alert.setHeaderText("Please correct invalid fields");
+			alert.setContentText(errorMessage);
+
+			alert.showAndWait();
+
+			return false;
+		}
+
+	}
 }
