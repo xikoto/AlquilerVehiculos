@@ -142,6 +142,7 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			combustible.setVisible(false);
 			empleado.setVisible(false);
 			aceptar.setVisible(false);
+			empleado.getItems().clear();
 			int idSuc = Integer.parseInt(t1.split("-")[0]);
 			idsucursal.set(idSuc);
 			try{
