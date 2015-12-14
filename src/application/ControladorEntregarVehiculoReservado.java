@@ -135,6 +135,11 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		
 		//Listener de sucursal
 		nombreSucursal.valueProperty().addListener((ov, t, t1)->{
+			tiposeguro.setVisible(false);
+			kmsactuales.setVisible(false);
+			combustible.setVisible(false);
+			empleado.setVisible(false);
+			aceptar.setVisible(false);
 			int idSuc = Integer.parseInt(t1.split("-")[0]);
 			try{
 				this.reservas.getItems().clear();
@@ -168,35 +173,34 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		
 		//listener de reservas
 		reservas.getSelectionModel().selectedItemProperty().addListener((ov, old, newV)->{
-			tiposeguro.setVisible(false);
-			kmsactuales.setVisible(false);
-			combustible.setVisible(false);
-			empleado.setVisible(false);
-			aceptar.setVisible(false);
-			idreserva.set(newV.getId());
-			try{
-				this.coches.getItems().clear();
-				for(Coche c : ControladorBLL.getControlador().listarCochesPorCategoria(newV.getCategoria().getNombre()))
-					this.coches.getItems().add(c);
-			}catch(DAOExcepcion e){
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.initOwner(dialogStage);
-				alert.setTitle("No hay coches disponibles");
-				alert.setHeaderText("No ha sido posible encontrar un coche");
-				alert.setContentText(e.getMessage());
+			if(newV!=null){
+				idreserva.set(newV.getId());
+				try{
+					this.coches.getItems().clear();
+					for(Coche c : ControladorBLL.getControlador().listarCochesPorCategoria(newV.getCategoria().getNombre()))
+						this.coches.getItems().add(c);
+				}catch(DAOExcepcion e){
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.initOwner(dialogStage);
+					alert.setTitle("No hay coches disponibles");
+					alert.setHeaderText("No ha sido posible encontrar un coche");
+					alert.setContentText(e.getMessage());
 
-				alert.showAndWait();
+					alert.showAndWait();
+				}
 			}
 		});
 		
 		//listener de coches
 		coches.getSelectionModel().selectedItemProperty().addListener((ov, old, newV)->{
-			tiposeguro.setVisible(true);
-			kmsactuales.setVisible(true);
-			combustible.setVisible(true);
-			empleado.setVisible(true);
-			aceptar.setVisible(true);
-			matriculacoche.set(newV.getMatricula());
+			if(newV!=null){
+				tiposeguro.setVisible(true);
+				kmsactuales.setVisible(true);
+				combustible.setVisible(true);
+				empleado.setVisible(true);
+				aceptar.setVisible(true);
+				matriculacoche.set(newV.getMatricula());
+			}
 		});
 		
 		aceptar.setOnAction(event -> {
