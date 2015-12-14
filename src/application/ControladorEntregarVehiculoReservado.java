@@ -153,14 +153,37 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		//listener de reservas
 		reservas.getSelectionModel().selectedItemProperty().addListener((ov, old, newV)->{
 			idreserva.set(newV.getId());
+			try{
+				this.coches.getItems().clear();
+				for(Coche c : ControladorBLL.getControlador().listarVehiculosDisponibles(newV.getSucursalRecogida().getId()))
+					this.coches.getItems().add(c);
+			}catch(DAOExcepcion e){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(dialogStage);
+				alert.setTitle("No hay coches disponibles");
+				alert.setHeaderText("No ha sido posible encontrar un coche");
+				alert.setContentText(e.getMessage());
+
+				alert.showAndWait();
+			}
 		});
 		
 		//listener de coches
 		coches.getSelectionModel().selectedItemProperty().addListener((ov, old, newV)->{
-			
+			tiposeguro.setVisible(true);
+			kmsactuales.setVisible(true);
+			combustible.setVisible(true);
+			empleado.setVisible(true);
+			aceptar.setVisible(true);
+			matriculacoche.set(newV.getMatricula());
 		});
 		
 		aceptar.setOnAction(event -> {
+			tiposeguro.setVisible(false);
+			kmsactuales.setVisible(false);
+			combustible.setVisible(false);
+			empleado.setVisible(false);
+			aceptar.setVisible(false);
 			Node minodo = (Node) event.getSource();
 			minodo.getScene().getWindow().hide();
 		});
