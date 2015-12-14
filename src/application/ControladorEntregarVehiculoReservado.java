@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import BLL.Coche;
 import BLL.ControladorBLL;
+import BLL.Empleado;
 import BLL.Reserva;
 import BLL.Sucursal;
 import UTIL.DAOExcepcion;
@@ -137,9 +138,24 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			int idSuc = Integer.parseInt(t1.split("-")[0]);
 			try{
 				this.reservas.getItems().clear();
+				this.coches.getItems().clear();
 				for(Reserva r : ControladorBLL.getControlador().listarReservasPendientesEntrega(idSuc))
 					this.reservas.getItems().add(r);
 			}catch(DAOExcepcion e){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(dialogStage);
+				alert.setTitle("Sucursal vacia");
+				alert.setHeaderText("Por favor selecciona otra sucursal");
+				alert.setContentText(e.getMessage());
+
+				alert.showAndWait();
+			}
+			//Rellenar combobox empleado
+			try {
+				List<Empleado> listaemp = ControladorBLL.getControlador().obtenerEmpleados(idSuc);
+				for(Empleado e : listaemp)
+					empleado.getItems().add(e.getDni());
+			} catch (DAOExcepcion e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.initOwner(dialogStage);
 				alert.setTitle("Sucursal vacia");
@@ -152,10 +168,15 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		
 		//listener de reservas
 		reservas.getSelectionModel().selectedItemProperty().addListener((ov, old, newV)->{
+			tiposeguro.setVisible(false);
+			kmsactuales.setVisible(false);
+			combustible.setVisible(false);
+			empleado.setVisible(false);
+			aceptar.setVisible(false);
 			idreserva.set(newV.getId());
 			try{
 				this.coches.getItems().clear();
-				for(Coche c : ControladorBLL.getControlador().listarVehiculosDisponibles(newV.getSucursalRecogida().getId()))
+				for(Coche c : ControladorBLL.getControlador().listarCochesPorCategoria(newV.getCategoria().getNombre()))
 					this.coches.getItems().add(c);
 			}catch(DAOExcepcion e){
 				Alert alert = new Alert(AlertType.ERROR);
@@ -184,6 +205,7 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			combustible.setVisible(false);
 			empleado.setVisible(false);
 			aceptar.setVisible(false);
+			
 			Node minodo = (Node) event.getSource();
 			minodo.getScene().getWindow().hide();
 		});

@@ -49,37 +49,18 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
 	@Override
 	public ArrayList<CocheDTO> obtenerCochesCategoria(String categoria) throws DAOExcepcion {
 		try{
-            /*connManager.connect();
-            ResultSet rs=connManager.queryDB("select * from COCHE where sucursal="+idSucrursal);
-            connManager.close();
             
-            String matricula, nombre;
-            ArrayList<CocheDTO> listac=new ArrayList<CocheDTO>();
-            while(rs.next()){
-            	
-            	matricula = limpiarString(rs.getString("matricula"));
-            	nombre = limpiarString(rs.getString("nombre"));
-            	
-                listac.add(new CocheDTO(matricula, 
-                                        rs.getDouble("kmsActuales"), 
-                                        rs.getInt("sucursal"),
-                                        nombre));
-            }
-            
-            if(listac.isEmpty())throw new DAOExcepcion("No existen registros de coches para la sucursal: "+ idSucrursal);
-            return listac;*/
 			ResultSet rs;
 			boolean bandera;
+			ArrayList<CocheDTO> listaCocheDTO;
 			do{
 				bandera = false;
 				connManager.connect();
-	            rs=connManager.queryDB("select * from COCHE where categoria='"+ categoria + "'");
+	            rs=connManager.queryDB("select * from COCHE where nombre='"+ categoria + "'");
 	            connManager.close();
-	            
 	            String matricula, nombre;
-	            ArrayList<CocheDTO> listaCocheDTO=new ArrayList<CocheDTO>();
+	            listaCocheDTO=new ArrayList<CocheDTO>();
 	            while(rs.next()){
-	            	
 	            	matricula = limpiarString(rs.getString("matricula"));
 	            	nombre = limpiarString(rs.getString("nombre"));
 	            	
@@ -91,11 +72,15 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
 	            
 	            if( listaCocheDTO.isEmpty() ){
 	            	categoria = subirCategoria(categoria);
-	            	if(true){}
+	            	bandera = true;
+	            	if(categoria == "")
+	            		throw new DAOExcepcion("No quedan vehículos disponibles en ninguna de las categorias.");
 	            }
 	            
+	            return listaCocheDTO;
 			}while( bandera );
-			return null;
+			
+			
         }catch (SQLException e){
         	throw new DAOExcepcion(e);
         } 

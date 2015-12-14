@@ -5,10 +5,17 @@ public class Empleado {
 	private String nombre;
 	private boolean administrador;
 	
-	public Empleado(String nombre, boolean administrador) {
+	public Empleado(String dni,String nombre, boolean administrador) {
 		super();
+		this.dni = dni;
 		this.nombre = nombre;
 		this.administrador = administrador;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 	public String getNombre() {
 		return nombre;

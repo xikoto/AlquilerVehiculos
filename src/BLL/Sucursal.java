@@ -64,4 +64,8 @@ public class Sucursal {
 	public void addCoche(Coche c){
 		listaCoches.put(c.getMatricula(),c);
 	}
+	
+	public void addEmpleado(Empleado e){
+		listaEmpleados.add(e);
+	}
 }

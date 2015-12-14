@@ -1,6 +1,7 @@
 package UTIL;
 
 import BLL.ControladorBLL;
+import BLL.Empleado;
 import BLL.Reserva;
 
 public class TestJose {
@@ -36,9 +37,8 @@ public class TestJose {
 		
 		try {
 			for(int i = 1; i<4; i++)
-				for (Reserva r : ControladorBLL.getControlador().listarReservasSucursal(i)) {
-					System.out.println(r.getId() + " " + r.getSucursalRecogida().getId() + " "
-							+ r.getSucursalDevolucion().getId());
+				for (Empleado e : ControladorBLL.getControlador().obtenerEmpleados(i)) {
+					System.out.println(e.getNombre() + " " + e.getAdministrador());
 				}
 			
 		} catch (DAOExcepcion e) {

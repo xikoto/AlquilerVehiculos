@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import DAO.DAL;
 import DAO.dto.ClienteDTO;
 import DAO.dto.CocheDTO;
+import DAO.dto.EmpleadoDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
 import UTIL.BLLExcepcion;
@@ -234,9 +235,45 @@ public class ControladorBLL {
 	 */
 	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
 		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
-		return null;
+		
+		Coche cocheAux;
+		Sucursal sucAux;
+		Categoria catAux;
+		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
+		for(CocheDTO dto : listaCochesDTO){
+			sucAux = listaSucursales.get( dto.getSucursal());
+			catAux = listaCategorias.get( dto.getCategoria());
+			cocheAux = new Coche( 	dto.getMatricula(),
+									dto.getKmsActuales(),
+									sucAux,
+									catAux
+								);
+			sucAux.addCoche(cocheAux);
+			catAux.addCoche(cocheAux);
+			listaCoches.add(cocheAux);
+		}
+		return listaCoches;
 	}
 	
+	/**
+	 * 3.- Listar Empleados de la sucursal.
+	 * @throws DAOExcepcion 
+	 * 
+	 */
+	public ArrayList<Empleado> obtenerEmpleados(int idSuc) throws DAOExcepcion{
+		ArrayList<EmpleadoDTO> listaEmpleadosDTO = dal.obtenerEmpleados(idSuc);
+		
+		Empleado empleadoAux;
+		Sucursal sucAux;
+		ArrayList<Empleado> listaEmpleado = new ArrayList<Empleado>();
+		for(EmpleadoDTO dto : listaEmpleadosDTO){
+			sucAux = listaSucursales.get( Integer.parseInt(dto.getSucursal()));
+			empleadoAux = new Empleado(dto.getDni(),dto.getNombre(),dto.isAdministrador());
+			sucAux.addEmpleado(empleadoAux);
+			listaEmpleado.add(empleadoAux);
+		}
+		return listaEmpleado;
+	}
 	
 	private void cargarSistema() throws DAOExcepcion{
 		cargarCategorias();

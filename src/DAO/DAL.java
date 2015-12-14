@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DAO.dto.CocheDTO;
+import DAO.dto.EmpleadoDTO;
 import DAO.dto.ClienteDTO;
 import DAO.dto.RegListaResSucDTO;
 import DAO.dto.ReservaDTO;
@@ -85,6 +86,10 @@ public class DAL {
 
 	public ArrayList<CocheDTO> obtenerCochesCategoria(String categoria) throws DAOExcepcion {
 		return cocheDAO.obtenerCochesCategoria(categoria);
+	}
+	
+	public ArrayList<EmpleadoDTO> obtenerEmpleados(int id) throws DAOExcepcion{
+		return sucursalDAO.obtenerEmpleados(id);
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 import BLL.Sucursal;
+import DAO.dto.EmpleadoDTO;
 import UTIL.*;
 
 public class SucursalDAO extends UtilDAO implements ISucursalDAO{
@@ -49,6 +50,34 @@ public class SucursalDAO extends UtilDAO implements ISucursalDAO{
 		}catch (SQLException e){	
 			throw new DAOExcepcion(e);
 		}	
+	}
+
+	@Override
+	public ArrayList<EmpleadoDTO> obtenerEmpleados(int id) throws DAOExcepcion {
+		try{
+			connManager.connect();
+			ResultSet rs=connManager.queryDB("select * from EMPLEADO where sucursal='"+id+"'");						
+			connManager.close();
+	  	  
+			ArrayList<EmpleadoDTO> listaEmpleados = new ArrayList<EmpleadoDTO>();
+			String dni,nombre,sucursal;
+			boolean administrador;
+			while (rs.next()){
+				dni=rs.getString("DNI");
+				nombre=rs.getString("NOMBRE");
+				sucursal=rs.getString("SUCURSAL");
+				administrador=Boolean.parseBoolean(rs.getString("ADMINISTRADOR"));
+				listaEmpleados.add(new EmpleadoDTO(dni,
+												   nombre,
+												   administrador,
+												   sucursal));
+				
+			}
+			if(listaEmpleados.isEmpty())throw new DAOExcepcion("No existen registros de empleado para la sucursal: "+id);
+			return listaEmpleados;
+		}catch (SQLException e){	
+			throw new DAOExcepcion(e);
+		}
 	}
 
 }
