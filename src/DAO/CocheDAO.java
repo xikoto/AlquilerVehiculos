@@ -24,7 +24,10 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
     public ArrayList<CocheDTO> obtenerCochesSucursal(int idSucrursal) throws DAOExcepcion{
         try{
             connManager.connect();
-            ResultSet rs=connManager.queryDB("select * from COCHE where sucursal="+idSucrursal);
+            ResultSet rs=connManager.queryDB("select * from COCHE where sucursal="+idSucrursal +"and NOT EXISTS("
+            		+ "SELECT * "
+            		+ "FROM ENTREGA "
+            		+ "WHERE ENTREGA.cocheAsignado = COCHE.matricula)");
             connManager.close();
             
             String matricula, nombre;
@@ -56,7 +59,10 @@ public class CocheDAO extends UtilDAO implements ICocheDAO{
 			do{
 				bandera = false;
 				connManager.connect();
-	            rs=connManager.queryDB("select * from COCHE where nombre='"+ categoria + "'");
+	            rs=connManager.queryDB("select * from COCHE where nombre='"+ categoria + "' and NOT EXISTS("
+	            		+ "SELECT * "
+	            		+ "FROM ENTREGA "
+	            		+ "WHERE ENTREGA.cocheAsignado = COCHE.matricula)");
 	            connManager.close();
 	            String matricula, nombre;
 	            listaCocheDTO=new ArrayList<CocheDTO>();
