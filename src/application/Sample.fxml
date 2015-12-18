@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <top>
       <MenuBar>
         <menus>
@@ -37,6 +37,6 @@
       </MenuBar>
    </top>
    <center>
-      <HBox prefHeight="390.0" prefWidth="400.0" />
+      <HBox id="pane" prefHeight="390.0" prefWidth="400.0" />
    </center>
 </BorderPane>
