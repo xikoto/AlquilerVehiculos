@@ -139,12 +139,12 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 	private boolean isInputValid() {
 		String errorMessage = "";
 		
-		if (fechaDevolucion.getValue() == null) {
+		if (fechaDevolucion.getValue() == null || fechaRecogida.getValue() == null) {
 			errorMessage += "No valid date!\n";
-		}
-		
-		if (fechaRecogida.getValue() == null) {
-			errorMessage += "No valid date!\n";
+		}else{
+			if(fechaDevolucion.getValue().compareTo(fechaRecogida.getValue())<0){
+				errorMessage += "Las fechas de devolucion y entrega no concuerdan";
+			}
 		}
 		
 		if (sucursalDevolucion.getSelectionModel().getSelectedItem() == null) {
