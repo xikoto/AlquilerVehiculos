@@ -208,11 +208,6 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 		});
 		
 		aceptar.setOnAction(event -> {
-			tiposeguro.setVisible(false);
-			kmsactuales.setVisible(false);
-			combustible.setVisible(false);
-			empleado.setVisible(false);
-			aceptar.setVisible(false);
 			EntregaDTO e=null;
 			if(isInputValid()){
 				e = new EntregaDTO(idreserva.get(),
