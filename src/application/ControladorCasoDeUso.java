@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public abstract class ControladorCasoDeUso implements Initializable {
@@ -36,6 +37,7 @@ public abstract class ControladorCasoDeUso implements Initializable {
 			Scene s = new Scene(parent);
 			controlador.stage.setScene(s);
 			controlador.stage.initOwner(owner);
+			controlador.stage.getIcons().add(new Image("file:data/ico.png"));
 			controlador.setControladorPrincipal(controladorPrincipal);
 		} catch (NullPointerException | IOException e) {
 			e.printStackTrace();
