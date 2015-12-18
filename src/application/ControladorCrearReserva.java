@@ -3,9 +3,6 @@ package application;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import BLL.Categoria;
 import BLL.ControladorBLL;
 import BLL.Sucursal;
@@ -27,7 +24,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class ControladorCrearReserva extends ControladorCasoDeUso {
-	private static final Logger LOG = Logger.getLogger(ControladorCrearReserva.class.getName());
 	
 	@FXML
 	private ComboBox<String> modalidad;
@@ -118,6 +114,15 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 
 				try{
 					ControladorBLL.getControlador().crearReserva(nuevaReserva);
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.initOwner(dialogStage);
+					alert.setTitle("Reserva nueva");
+					alert.setHeaderText("Nuevo reserva creada");
+					alert.setContentText("Reserva con id: "+nuevaReserva.getId());
+
+					alert.showAndWait();
+					Node minodo = (Node) event.getSource();
+					minodo.getScene().getWindow().hide();
 				}catch(DAOExcepcion e){
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.initOwner(dialogStage);
@@ -127,13 +132,6 @@ public class ControladorCrearReserva extends ControladorCasoDeUso {
 
 					alert.showAndWait();
 				}
-				LOG.log(Level.INFO, "Se ha creado una nueva Reserva: " + nuevaReserva);
-			} else {
-				LOG.log(Level.INFO, "No se ha podido crear una nueva reserva.");
-			}
-			if(b){
-				Node minodo = (Node) event.getSource();
-				minodo.getScene().getWindow().hide();
 			}
 		});
 	}

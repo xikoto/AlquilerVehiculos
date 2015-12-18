@@ -232,23 +232,20 @@ public class ControladorBLL {
 	/**
 	 * 2.- Listar Coches de la categoría de la reserva que ha realizado el cliente.
 	 * @throws DAOExcepcion 
+	 * @throws BLLExcepcion 
 	 * 
 	 */
-	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion{
+	public ArrayList<Coche> listarCochesPorCategoria(String categoria) throws DAOExcepcion, NullPointerException{
 		ArrayList<CocheDTO> listaCochesDTO = dal.obtenerCochesCategoria(categoria);
-		
 		Coche cocheAux;
 		Sucursal sucAux;
 		Categoria catAux;
 		ArrayList<Coche> listaCoches = new ArrayList<Coche>();
 		for(CocheDTO dto : listaCochesDTO){
-			sucAux = listaSucursales.get( dto.getSucursal());
-			catAux = listaCategorias.get( dto.getCategoria());
-			cocheAux = new Coche( 	dto.getMatricula(),
-									dto.getKmsActuales(),
-									sucAux,
-									catAux
-								);
+			sucAux = listaSucursales.get(dto.getSucursal());
+			catAux = listaCategorias.get(dto.getCategoria());
+
+			cocheAux = new Coche(dto.getMatricula(), dto.getKmsActuales(), sucAux, catAux);
 			sucAux.addCoche(cocheAux);
 			catAux.addCoche(cocheAux);
 			listaCoches.add(cocheAux);

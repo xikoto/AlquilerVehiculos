@@ -192,6 +192,15 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 
 					alert.showAndWait();
 				}
+				catch(NullPointerException e){
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.initOwner(dialogStage);
+					alert.setTitle("No hay coches disponibles");
+					alert.setHeaderText("No ha sido posible encontrar un coche");
+					alert.setContentText("El coche de esta categoria o superior no se encuentra en la sucursal");
+
+					alert.showAndWait();
+				}
 			}
 		});
 		
@@ -222,6 +231,15 @@ public class ControladorEntregarVehiculoReservado extends ControladorCasoDeUso{
 			if(e!=null){
 				try {
 					ControladorBLL.getControlador().entregarVehiculoReservado(e,idsucursal.get());
+					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.initOwner(dialogStage);
+					alert.setTitle("Entrega nueva");
+					alert.setHeaderText("Nueva entrega creada");
+					alert.setContentText("Entrega con id: "+e.getId());
+
+					alert.showAndWait();
+					
 					Node minodo = (Node) event.getSource();
 					minodo.getScene().getWindow().hide();
 				} catch (DAOExcepcion e1) {

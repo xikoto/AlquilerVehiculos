@@ -2,9 +2,6 @@ package application;
 
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import BLL.ControladorBLL;
 import DAO.dto.ClienteDTO;
 import UTIL.*;
@@ -19,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class ControladorCrearCliente extends ControladorCasoDeUso{
-	private static final Logger LOG = Logger.getLogger(ControladorCrearCliente.class.getName());
 	@FXML
 	private TextField dni;
 	@FXML
@@ -90,6 +86,15 @@ public class ControladorCrearCliente extends ControladorCasoDeUso{
 
 				try{
 					ControladorBLL.getControlador().crearCliente(nuevoCliente);
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.initOwner(dialogStage);
+					alert.setTitle("Cliente nuevo");
+					alert.setHeaderText("Nuevo cliente creado");
+					alert.setContentText(nuevoCliente.getNombreyApellidos());
+
+					alert.showAndWait();
+					Node minodo = (Node) event.getSource();
+					minodo.getScene().getWindow().hide();
 				}catch(BLLExcepcion e){
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.initOwner(dialogStage);
@@ -107,13 +112,7 @@ public class ControladorCrearCliente extends ControladorCasoDeUso{
 
 					alert.showAndWait();
 				}
-				
-				LOG.log(Level.INFO, "Se ha creado un nuevo Cliente: " + nuevoCliente);
-			} else {
-				LOG.log(Level.INFO, "No se ha podido crear un nuevo cliente.");
-			}
-			Node minodo = (Node) event.getSource();
-			minodo.getScene().getWindow().hide();
+			} 
 		});
 	}
 
